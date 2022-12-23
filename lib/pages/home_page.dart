@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
             ElevatedButton(onPressed: (){
                 taskReference.add(
                   {
-                    "title": "Ir de compras al super",
+                    "title": "Ir de compras al super2",
                     "description": "Debemos comprar comida para todo el mes",
                   },
                   ).then((DocumentReference value){
@@ -64,6 +64,32 @@ class HomePage extends StatelessWidget {
             }, 
             child: Text(
               "Actualizar doocumento",
+              ),
+            ),
+            ElevatedButton(onPressed: (){
+              taskReference.doc("QndGei8JjuWf86NLBo2y")
+              .delete()
+              .catchError((error){
+                print(error);
+              }).whenComplete((){
+                print("La eliminacion esta completada");
+              });
+            }, 
+            child: Text(
+              "Eliminar Documento",
+              ),
+            ),
+            ElevatedButton(onPressed: (){
+              taskReference.doc("A00001").set(
+                {
+                  "title": "ir al concierto",
+                  "description": "Este fin de semana debemos de ir al concierto",
+              }).catchError((error){
+                print("Creacion completad");
+              });
+            }, 
+            child: Text(
+              "Agregar documento personalizado",
               ),
             ),
           ],
