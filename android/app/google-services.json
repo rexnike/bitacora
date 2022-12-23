@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "42312244465",
+    "project_id": "bitacora-task",
+    "storage_bucket": "bitacora-task.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:42312244465:android:87efa4f308ae8af5cc1d50",
+        "android_client_info": {
+          "package_name": "com.example.bitacora"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "42312244465-n7f51dqma89oaesdiqqs2fn6il3rnd41.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-H2akg9TcbpruSJMM-DsKQm2fN1sRYlc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "42312244465-n7f51dqma89oaesdiqqs2fn6il3rnd41.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
