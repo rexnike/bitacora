@@ -1,6 +1,7 @@
 
 import 'package:bitacora/ui/general/colors.dart';
 import 'package:bitacora/ui/widgets/general_widgets.dart';
+import 'package:bitacora/ui/widgets/item_task_widget.dart';
 import 'package:bitacora/ui/widgets/textfield_search_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -106,68 +107,10 @@ class HomePage extends StatelessWidget {
           ),
           ),
 
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 16.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(14.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.04),
-                  offset: const Offset(4, 4),
-                  blurRadius: 12.0,
-                ),
-              ]
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+          ItemTaskWidget(),
+          ItemTaskWidget(),
+          ItemTaskWidget(),
 
-                Container(
-                  padding:const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.5),
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(6.0),
-                  ),
-                  child: Text("Pecho & Biceps",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 13.0,
-                  ),
-                  ),
-                ),
-
-                divider3(),
-
-                Text("lorem ipsum dolor",
-                style: TextStyle(
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.w600,
-                  color: kBrandPrimaryColor.withOpacity(0.85),
-                ),
-                ),
-
-                Text("lorem ipsum dolor of shit",
-                style: TextStyle(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w500,
-                  color: kBrandPrimaryColor.withOpacity(0.75),
-                ),
-                ),
-
-                divider6(),
-
-                Text("10/10/2022",
-                style: TextStyle(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w500,
-                  color: kBrandPrimaryColor.withOpacity(0.75),
-                ),
-                ),
-
-              ],
-            ),
-          ),
             ],
           ),
          ),
