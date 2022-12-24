@@ -10,8 +10,12 @@ class TextFieldSearchWidget extends StatelessWidget {
     return TextField(
                     decoration: InputDecoration(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 15.0),
-                      prefixIcon: Icon(Icons.search, size: 20.0, color: kBrandPrimaryColor.withOpacity(0.6),),
-                      hintText: "Buscar Progreso.....",
+                      prefixIcon: Icon(
+                        Icons.search, 
+                        size: 20.0, 
+                        color: kBrandPrimaryColor.withOpacity(0.6),
+                        ),
+                      hintText: "Buscar Progreso...",
                       hintStyle: TextStyle(
                         fontSize: 14.0,
                         color: kBrandPrimaryColor.withOpacity(0.6),
