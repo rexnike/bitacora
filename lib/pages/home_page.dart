@@ -108,9 +108,8 @@ class HomePage extends StatelessWidget {
           ),
 
           ItemTaskWidget(),
-          ItemTaskWidget(),
-          ItemTaskWidget(),
-
+          
+          
             ],
           ),
          ),
