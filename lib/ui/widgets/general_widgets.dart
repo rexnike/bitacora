@@ -1,4 +1,5 @@
 
+import 'package:bitacora/ui/general/colors.dart';
 import 'package:flutter/material.dart';
 
 
@@ -16,3 +17,13 @@ Widget divider20width() => const SizedBox(width: 20);
 Widget divider30width() => const SizedBox(width: 30);
 Widget divider40Width() => const SizedBox(width: 40);
 
+Widget loadingWidget() => Center(
+                child: SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: CircularProgressIndicator(
+                    color: kBrandPrimaryColor,
+                    strokeWidth: 2.2,
+                  ),
+                ),
+              );

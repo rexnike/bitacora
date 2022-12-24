@@ -1,11 +1,15 @@
 
+import 'package:bitacora/models/task_model.dart';
 import 'package:bitacora/ui/general/colors.dart';
 import 'package:bitacora/ui/widgets/general_widgets.dart';
 import 'package:bitacora/ui/widgets/item_category_widget.dart';
 import 'package:flutter/material.dart';
 
 class ItemTaskWidget extends StatelessWidget {
-  const ItemTaskWidget({super.key});
+  
+  TaskModel taskModel;
+
+  ItemTaskWidget({required this.taskModel});
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +33,12 @@ class ItemTaskWidget extends StatelessWidget {
               children: [
 
                 itemCategoryWidget(
-                  text: "Pierna & Hombro",
+                  text: taskModel.category,
                 ),
 
                 divider3(),
 
-                Text("lorem ipsum dolor",
+                Text(taskModel.title,
                 style: TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.w600,
@@ -42,7 +46,7 @@ class ItemTaskWidget extends StatelessWidget {
                 ),
                 ),
 
-                Text("lorem ipsum dolor of shit",
+                Text(taskModel.description,
                 style: TextStyle(
                   fontSize: 14.0,
                   fontWeight: FontWeight.w500,
@@ -52,7 +56,7 @@ class ItemTaskWidget extends StatelessWidget {
 
                 divider6(),
 
-                Text("10/10/2022",
+                Text(taskModel.date,
                 style: TextStyle(
                   fontSize: 14.0,
                   fontWeight: FontWeight.w500,

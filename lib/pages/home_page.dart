@@ -1,4 +1,5 @@
 
+import 'package:bitacora/models/task_model.dart';
 import 'package:bitacora/ui/general/colors.dart';
 import 'package:bitacora/ui/widgets/general_widgets.dart';
 import 'package:bitacora/ui/widgets/item_task_widget.dart';
@@ -107,7 +108,29 @@ class HomePage extends StatelessWidget {
           ),
           ),
 
-          ItemTaskWidget(),
+          StreamBuilder(
+            stream: taskReference.snapshots(),
+            builder: (BuildContext context, AsyncSnapshot snap){
+              if(snap.hasData){
+                List<TaskModel> tasks = [];
+                QuerySnapshot collection = snap.data;
+                
+                tasks = collection.docs.map((e) => TaskModel.fromJson(e.data() as Map<String, dynamic>) ).toList();
+
+                return ListView.builder(
+                  itemCount: tasks.length,
+                  shrinkWrap: true,
+                  physics:const ScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index){
+                    return ItemTaskWidget(
+                      taskModel: tasks[index],
+                    );
+                  },
+                );
+              }
+              return loadingWidget();
+            },
+          ),
           
           
             ],
