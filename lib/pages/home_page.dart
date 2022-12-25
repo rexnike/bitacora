@@ -28,6 +28,7 @@ class HomePage extends StatelessWidget {
               ),
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               Text("Agregar tarea",
@@ -50,6 +51,55 @@ class HomePage extends StatelessWidget {
             ),
             
             divider10(),
+            Text("Categoria"),
+            Wrap(
+              crossAxisAlignment: WrapCrossAlignment.start,
+              runAlignment: WrapAlignment.start,
+              spacing: 10.0,
+              children: [
+                FilterChip(
+              selected: true,
+              selectedColor: categoryColor["Pecho"],
+              checkmarkColor: Colors.white,
+              labelStyle: TextStyle(
+                color: Colors.white,
+              ),
+              label: Text("Pecho"), 
+              onSelected: (bool value){},
+            ),
+            FilterChip(
+              selected: true,
+              selectedColor: categoryColor["Espalda"],
+              checkmarkColor: Colors.white,
+              labelStyle: TextStyle(
+                color: Colors.white,
+              ),
+              label: Text("Espalda"), 
+              onSelected: (bool value){},
+            ),
+            FilterChip(
+              selected: true,
+              selectedColor: categoryColor["Pierna"],
+              checkmarkColor: Colors.white,
+              labelStyle: TextStyle(
+                color: Colors.white,
+              ),
+              label: Text("Pierna"), 
+              onSelected: (bool value){},
+            ),
+            FilterChip(
+              selected: true,
+              selectedColor: categoryColor["Brazos"],
+              checkmarkColor: Colors.white,
+              labelStyle: TextStyle(
+                color: Colors.white,
+              ),
+              label: Text("Brazos"), 
+              onSelected: (bool value){},
+            ),
+              ],
+            ),
+
             divider10(),
             ButtonNormalWidget(),
 
