@@ -1,7 +1,21 @@
 
+import 'package:bitacora/models/task_model.dart';
+import 'package:bitacora/ui/widgets/item_task_widget.dart';
 import 'package:flutter/material.dart';
 
 class TaskSearchDelegate extends SearchDelegate{
+
+  List<TaskModel> tasks;
+
+  TaskSearchDelegate({required this.tasks});
+
+  @override
+  String? get searchFieldLabel => "Buscar Dia....";
+
+  @override
+  TextStyle? get searchFieldStyle => TextStyle(
+    fontSize: 16.0,
+  );
 
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -27,12 +41,38 @@ class TaskSearchDelegate extends SearchDelegate{
 
   @override
   Widget buildResults(BuildContext context) {
-    return Text("buildResults");
+
+    List<TaskModel> results = tasks.where((element) => element.title.toLowerCase().contains(query.toLowerCase())).toList();
+
+    return Padding(
+      padding: const EdgeInsets.all(14.0),
+      child: ListView.builder(
+        itemCount: results.length,
+        itemBuilder: (BuildContext context, int index){
+          return ItemTaskWidget(
+              taskModel: results[index],
+          );
+        },
+      ),
+    );
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Text("buildSuggestions");
+
+    List<TaskModel> results = tasks.where((element) => element.title.toLowerCase().contains(query.toLowerCase())).toList();
+
+    return Padding(
+      padding: const EdgeInsets.all(14.0),
+      child: ListView.builder(
+        itemCount: results.length,
+        itemBuilder: (BuildContext context, int index){
+          return ItemTaskWidget(
+              taskModel: results[index],
+          );
+        },
+      ),
+    );
   }
 
 }
