@@ -1,9 +1,10 @@
 
 import 'package:bitacora/models/task_model.dart';
 import 'package:bitacora/ui/general/colors.dart';
+import 'package:bitacora/ui/widgets/button_normal_widget.dart';
 import 'package:bitacora/ui/widgets/general_widgets.dart';
 import 'package:bitacora/ui/widgets/item_task_widget.dart';
-import 'package:bitacora/ui/widgets/textfield_search_widget.dart';
+import 'package:bitacora/ui/widgets/textfield_normal_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -12,19 +13,66 @@ class HomePage extends StatelessWidget {
   CollectionReference taskReference = 
     FirebaseFirestore.instance.collection("tasks");
 
+  ShowTaskForm(BuildContext context){
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent, 
+      builder: (BuildContext context){
+        return Container(
+          padding: const EdgeInsets.all(14.0),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(22.0),
+              topRight: Radius.circular(22.0),
+              ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text("Agregar tarea",
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 15.0,
+              ),
+            ),
+            
+            divider6(),
+            TextFieldNormalhWidget(
+              hintText: "Titulo",
+              icon: Icons.text_fields,
+            ),
+
+            divider10(),
+            TextFieldNormalhWidget(
+              hintText: "Descripcion",
+              icon: Icons.description,
+            ),
+            
+            divider10(),
+            divider10(),
+            ButtonNormalWidget(),
+
+            ],
+          ),
+         );
+        }
+      );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBrandtercerColor,
       floatingActionButton: InkWell(
         onTap: () {
-          
+          ShowTaskForm(context);
         },
         borderRadius: BorderRadius.circular(14.0),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0,),
           decoration: BoxDecoration(
-            color: kBrandPrimaryColor,
+            color: kBrandSecundatyColor,
             borderRadius: BorderRadius.circular(14.0),
           ),
       
@@ -32,12 +80,12 @@ class HomePage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: const [
               Icon(Icons.add,
-              color: Colors.white,
+              color: Colors.black,
               ),
               
               Text("Nuevo Progreso",
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
               ),
               ),
             ],
@@ -89,7 +137,10 @@ class HomePage extends StatelessWidget {
 
                   divider10(),
 
-                  TextFieldSearchWidget(),
+                  TextFieldNormalhWidget(
+                    icon: Icons.search,
+                    hintText: "Buscar tarea...",
+                  ),
                 ],
               ),
             ),

@@ -2,8 +2,15 @@
 import 'package:bitacora/ui/general/colors.dart';
 import 'package:flutter/material.dart';
 
-class TextFieldSearchWidget extends StatelessWidget {
-  const TextFieldSearchWidget({super.key});
+class TextFieldNormalhWidget extends StatelessWidget {
+  
+  String hintText;
+  IconData icon;
+
+  TextFieldNormalhWidget({
+    required this.hintText, 
+    required this.icon
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -11,11 +18,11 @@ class TextFieldSearchWidget extends StatelessWidget {
                     decoration: InputDecoration(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 15.0),
                       prefixIcon: Icon(
-                        Icons.search, 
+                        icon, 
                         size: 20.0, 
                         color: kBrandPrimaryColor.withOpacity(0.6),
                         ),
-                      hintText: "Buscar Progreso...",
+                      hintText: hintText,
                       hintStyle: TextStyle(
                         fontSize: 14.0,
                         color: kBrandPrimaryColor.withOpacity(0.6),
