@@ -1,7 +1,6 @@
 
 import 'package:bitacora/models/task_model.dart';
 import 'package:bitacora/ui/general/colors.dart';
-import 'package:bitacora/ui/widgets/button_normal_widget.dart';
 import 'package:bitacora/ui/widgets/general_widgets.dart';
 import 'package:bitacora/ui/widgets/item_task_widget.dart';
 import 'package:bitacora/ui/widgets/task_form_widget.dart';
@@ -10,6 +9,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
+
+  final TextEditingController _searchController = TextEditingController();
   
   CollectionReference taskReference = 
     FirebaseFirestore.instance.collection("tasks");
@@ -17,9 +18,13 @@ class HomePage extends StatelessWidget {
   ShowTaskForm(BuildContext context){
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       backgroundColor: Colors.transparent, 
       builder: (BuildContext context){
-        return TaskFormWidget();
+        return Padding(
+          padding: MediaQuery.of(context).viewInsets,
+          child: TaskFormWidget(),
+        );
         }
       );
   }
@@ -102,6 +107,7 @@ class HomePage extends StatelessWidget {
                   divider10(),
 
                   TextFieldNormalhWidget(
+                    controller: _searchController,
                     icon: Icons.search,
                     hintText: "Buscar tarea...",
                   ),

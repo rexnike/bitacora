@@ -14,6 +14,14 @@ class TaskFormWidget extends StatefulWidget {
 
 class _TaskFormWidgetState extends State<TaskFormWidget> {
 
+  final formkey = GlobalKey<FormState>();
+
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
+
+  String categorySelected = "Pecho";
+
   showSelectDate()async{
     DateTime? datetime = await showDatePicker(
       context: context, 
@@ -42,105 +50,135 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
             );
           },
         );
+
+        if(DateTime != null){
+          _dateController.text = datetime.toString().substring(0, 10);
+          setState(() {});
+        }
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
           padding: const EdgeInsets.all(14.0),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(22.0),
               topRight: Radius.circular(22.0),
               ),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-            Text("Agregar tarea",
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 15.0,
-              ),
-            ),
-            
-            divider6(),
-            TextFieldNormalhWidget(
-              hintText: "Titulo",
-              icon: Icons.text_fields,
-            ),
 
-            divider10(),
-            TextFieldNormalhWidget(
-              hintText: "Descripcion",
-              icon: Icons.description,
-            ),
-            
-            divider10(),
-            Text("Categoria:"),
-            Wrap(
-              crossAxisAlignment: WrapCrossAlignment.start,
-              runAlignment: WrapAlignment.start,
-              spacing: 10.0,
+          child: Form(
+            key: formkey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                FilterChip(
-              selected: true,
-              selectedColor: categoryColor["Pecho"],
-              checkmarkColor: Colors.white,
-              labelStyle: TextStyle(
-                color: Colors.white,
+              const Text("Agregar tarea",
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 15.0,
+                ),
               ),
-              label: Text("Pecho"), 
-              onSelected: (bool value){},
-            ),
-            FilterChip(
-              selected: true,
-              selectedColor: categoryColor["Espalda"],
-              checkmarkColor: Colors.white,
-              labelStyle: TextStyle(
-                color: Colors.white,
+              
+              divider6(),
+              TextFieldNormalhWidget(
+                hintText: "Titulo",
+                icon: Icons.text_fields,
+                controller: _titleController,
               ),
-              label: Text("Espalda"), 
-              onSelected: (bool value){},
-            ),
-            FilterChip(
-              selected: true,
-              selectedColor: categoryColor["Pierna"],
-              checkmarkColor: Colors.white,
-              labelStyle: TextStyle(
-                color: Colors.white,
+          
+              divider10(),
+              TextFieldNormalhWidget(
+                hintText: "Descripcion",
+                icon: Icons.description,
+                controller: _descriptionController,
               ),
-              label: Text("Pierna"), 
-              onSelected: (bool value){},
-            ),
-            FilterChip(
-              selected: true,
-              selectedColor: categoryColor["Brazos"],
-              checkmarkColor: Colors.white,
-              labelStyle: TextStyle(
-                color: Colors.white,
-              ),
-              label: Text("Brazos"), 
-              onSelected: (bool value){},
-            ),
-              ],
-            ),
-
-            divider10(),
-            TextFieldNormalhWidget(
-              hintText: "Fecha", 
-              icon: Icons.date_range,
-              onTap: (){
-                showSelectDate();
+              
+              divider10(),
+              const Text("Categoria:"),
+              Wrap(
+                crossAxisAlignment: WrapCrossAlignment.start,
+                runAlignment: WrapAlignment.start,
+                spacing: 10.0,
+                children: [
+              FilterChip(
+                selected: categorySelected == "Pecho",
+                selectedColor: categoryColor[categorySelected],
+                checkmarkColor: Colors.white,
+                labelStyle: TextStyle(
+                  color: categorySelected == "Pecho" ? Colors.white : kBrandPrimaryColor, 
+                ),
+                label: Text("Pecho"), 
+                onSelected: (bool value){
+                  categorySelected = "Pecho";
+                  setState(() {});
                 },
               ),
-            
-            divider20(),
-            ButtonNormalWidget(),
-
-            ],
+              FilterChip(
+                selected: categorySelected == "Espalda",
+                selectedColor: categoryColor[categorySelected],
+                checkmarkColor: Colors.white,
+                labelStyle: TextStyle(
+                  color: categorySelected == "Espalda" ? Colors.white : kBrandPrimaryColor,
+                ),
+                label: Text("Espalda"), 
+                onSelected: (bool value){
+                  categorySelected = "Espalda";
+                  setState(() {});
+                },
+              ),
+              FilterChip(
+                selected: categorySelected == "Pierna",
+                selectedColor: categoryColor[categorySelected],
+                checkmarkColor: Colors.white,
+                labelStyle: TextStyle(
+                  color: categorySelected == "Pierna" ? Colors.white : kBrandPrimaryColor,
+                ),
+                label: Text("Pierna"), 
+                onSelected: (bool value){
+                  categorySelected = "Pierna";
+                  setState(() {});
+                },
+              ),
+              FilterChip(
+                selected: categorySelected == "Brazos",
+                selectedColor: categoryColor[categorySelected],
+                checkmarkColor: Colors.white,
+                labelStyle: TextStyle(
+                  color: categorySelected == "Brazos" ? Colors.white : kBrandPrimaryColor,
+                ),
+                label: Text("Brazos"), 
+                onSelected: (bool value){
+                  categorySelected = "Brazos";
+                  setState(() {});
+                },
+              ),
+                ],
+              ),
+          
+              divider10(),
+              TextFieldNormalhWidget(
+                hintText: "Fecha", 
+                icon: Icons.date_range,
+                onTap: (){
+                  showSelectDate();
+                  },
+                  controller: _dateController,
+                ),
+              
+              divider20(),
+              ButtonNormalWidget(
+                onPressed: (){
+                  if(formkey.currentState!.validate()){
+                    
+                  }
+                },
+              ),
+          
+              ],
+            ),
           ),
          );
   }
