@@ -6,15 +6,19 @@ class TextFieldNormalhWidget extends StatelessWidget {
   
   String hintText;
   IconData icon;
+  Function? onTap;
 
   TextFieldNormalhWidget({
     required this.hintText, 
-    required this.icon
+    required this.icon,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+                    onTap: onTap != null ? (){onTap!();} : null,
+                    readOnly: onTap != null ? true : false,
                     decoration: InputDecoration(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 15.0),
                       prefixIcon: Icon(
