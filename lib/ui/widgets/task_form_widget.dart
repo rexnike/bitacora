@@ -1,4 +1,5 @@
 
+import 'package:bitacora/models/task_model.dart';
 import 'package:bitacora/services/my_services_firestore.dart';
 import 'package:bitacora/ui/general/colors.dart';
 import 'package:bitacora/ui/widgets/button_normal_widget.dart';
@@ -60,7 +61,25 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
 
   registerTask(){
       if(formkey.currentState!.validate()){
-        taskService.addTask();            
+
+        TaskModel taskModel = TaskModel(
+          title: _titleController.text, 
+          description: _descriptionController.text, 
+          date: _dateController.text, 
+          category: categorySelected, 
+          status: true,
+        );
+        taskService.addTask(taskModel).then((value){
+          if(value.isNotEmpty){
+
+            Navigator.pop(context);
+            showSnackBarSuccess(context, "la tarea fue resgistrada con exito.");
+            
+          }
+        }).catchError((error){
+            showSnackBarError(context, "Hubo un inconveniente, intentelo nuevamente.");
+            Navigator.pop(context);
+        });            
       }
   }
 
