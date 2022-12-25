@@ -136,7 +136,11 @@ class HomePage extends StatelessWidget {
                 List<TaskModel> tasks = [];
                 QuerySnapshot collection = snap.data;
                 
-                tasks = collection.docs.map((e) => TaskModel.fromJson(e.data() as Map<String, dynamic>) ).toList();
+                tasks = collection.docs.map((e){
+                  TaskModel task = TaskModel.fromJson(e.data() as Map<String, dynamic>);
+                  task.id = e.id;
+                  return task;
+                }).toList();
 
                 return ListView.builder(
                   itemCount: tasks.length,
