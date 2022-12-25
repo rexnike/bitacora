@@ -5,6 +5,7 @@ import 'package:bitacora/ui/widgets/general_widgets.dart';
 import 'package:bitacora/ui/widgets/item_task_widget.dart';
 import 'package:bitacora/ui/widgets/task_form_widget.dart';
 import 'package:bitacora/ui/widgets/textfield_normal_widget.dart';
+import 'package:bitacora/utils/task_search_delegate.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -110,6 +111,9 @@ class HomePage extends StatelessWidget {
                     controller: _searchController,
                     icon: Icons.search,
                     hintText: "Buscar tarea...",
+                    onTap: ()async{
+                      await showSearch(context: context, delegate: TaskSearchDelegate());
+                    },
                   ),
                 ],
               ),
