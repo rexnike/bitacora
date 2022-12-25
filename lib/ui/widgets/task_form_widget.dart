@@ -1,4 +1,5 @@
 
+import 'package:bitacora/services/my_services_firestore.dart';
 import 'package:bitacora/ui/general/colors.dart';
 import 'package:bitacora/ui/widgets/button_normal_widget.dart';
 import 'package:bitacora/ui/widgets/general_widgets.dart';
@@ -15,7 +16,7 @@ class TaskFormWidget extends StatefulWidget {
 class _TaskFormWidgetState extends State<TaskFormWidget> {
 
   final formkey = GlobalKey<FormState>();
-
+  MyServicesFireStore taskService = MyServicesFireStore(collection: "tasks");
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
@@ -55,6 +56,12 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
           _dateController.text = datetime.toString().substring(0, 10);
           setState(() {});
         }
+  }
+
+  registerTask(){
+      if(formkey.currentState!.validate()){
+        taskService.addTask();            
+      }
   }
 
   @override
@@ -171,9 +178,7 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
               divider20(),
               ButtonNormalWidget(
                 onPressed: (){
-                  if(formkey.currentState!.validate()){
-                    
-                  }
+                  registerTask();
                 },
               ),
           
