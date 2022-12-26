@@ -1,5 +1,6 @@
 
 import 'package:bitacora/models/task_model.dart';
+import 'package:bitacora/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MyServicesFireStore{
@@ -21,6 +22,11 @@ class MyServicesFireStore{
         "Status": false,
       },
     );
+  }
+
+  Future<String> addUser(UserModel userModel)async{
+  DocumentReference documentReference = await _collectionReference.add(userModel.ToJson());
+  return documentReference.id;
   }
 
 }

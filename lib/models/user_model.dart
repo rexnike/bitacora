@@ -5,7 +5,6 @@ class UserModel{
   String email;
 
   UserModel({
-
     this.id,
     required this.fullName,
     required this.email,

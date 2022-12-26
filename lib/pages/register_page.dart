@@ -1,4 +1,7 @@
 
+import 'package:bitacora/models/user_model.dart';
+import 'package:bitacora/pages/home_page.dart';
+import 'package:bitacora/services/my_services_firestore.dart';
 import 'package:bitacora/ui/general/colors.dart';
 import 'package:bitacora/ui/widgets/button_custom_widget.dart';
 import 'package:bitacora/ui/widgets/general_widgets.dart';
@@ -22,6 +25,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _fullNameController = TextEditingController();
 
+  MyServicesFireStore userService = MyServicesFireStore(collection: "users");
+
   _registerUser()async{
 
     try{
@@ -30,6 +35,18 @@ class _RegisterPageState extends State<RegisterPage> {
         email: _emailController.text, 
         password: _passwordController.text,
       );
+
+        if(userCredential.user != null){
+          UserModel userModel = UserModel(
+            fullName: _fullNameController.text, 
+            email: _emailController.text,
+            );
+          userService.addUser(userModel).then((value){
+            if(value.isNotEmpty){
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomePage()), (route) => false);
+            }
+          });
+        }
       }
 
     } on FirebaseAuthException catch(error){
