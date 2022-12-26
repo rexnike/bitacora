@@ -8,6 +8,7 @@ import 'package:bitacora/ui/widgets/textfield_password_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'home_page.dart';
 
@@ -37,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomePage(),), (route) => false);
         }
       }
-
+      
     }on FirebaseAuthException catch(error){
       if(error.code == "invalid-email"){
         showSnackBarError(context, "El correo electronic es invalido");
@@ -47,6 +48,11 @@ class _LoginPageState extends State<LoginPage> {
         showSnackBarError(context, "La contraseña es incorrecta");
       }
     }
+  }
+
+  _loginWithGoogle()async{
+    GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ["email"]);
+    _googleSignIn.signIn();
   }
 
   @override
@@ -105,7 +111,9 @@ class _LoginPageState extends State<LoginPage> {
                   text: "Iniciar Sesion con Google",
                   icon: "google",
                   color: Color(0xfff84b2a),
-                  onPressed: (){},
+                  onPressed: (){
+                    _loginWithGoogle();
+                  },
                 ),
           
                 divider20(),
