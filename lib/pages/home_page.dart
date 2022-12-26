@@ -1,5 +1,6 @@
 
 import 'package:bitacora/models/task_model.dart';
+import 'package:bitacora/pages/login_page.dart';
 import 'package:bitacora/ui/general/colors.dart';
 import 'package:bitacora/ui/widgets/general_widgets.dart';
 import 'package:bitacora/ui/widgets/item_task_widget.dart';
@@ -8,6 +9,7 @@ import 'package:bitacora/ui/widgets/textfield_normal_widget.dart';
 import 'package:bitacora/utils/task_search_delegate.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class HomePage extends StatelessWidget {
 
@@ -17,6 +19,8 @@ class HomePage extends StatelessWidget {
   
   CollectionReference taskReference = 
     FirebaseFirestore.instance.collection("tasks");
+
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   ShowTaskForm(BuildContext context){
     showModalBottomSheet(
@@ -91,6 +95,11 @@ class HomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
 
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween   ,
+                    children: [
+                      Column(
+                        children: [
                   Text("Bienvenido a su Bitacora",
                   style: TextStyle(
                     fontSize: 26.0,
@@ -105,6 +114,17 @@ class HomePage extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: kBrandPrimaryColor,
                     ),
+                  ),
+                        ],
+                      ),
+                  IconButton(
+                    onPressed: (){
+                      _googleSignIn.signOut();
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LoginPage()), (route) => false);
+                    }, 
+                    icon: Icon(Icons.exit_to_app, color: kBrandPrimaryColor,),
+                     ),
+                    ],
                   ),
 
                   divider10(),
