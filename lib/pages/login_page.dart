@@ -1,4 +1,5 @@
 
+import 'package:bitacora/pages/register_page.dart';
 import 'package:bitacora/ui/general/colors.dart';
 import 'package:bitacora/ui/widgets/button_custom_widget.dart';
 import 'package:bitacora/ui/widgets/button_normal_widget.dart';
@@ -27,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
 
@@ -74,6 +75,28 @@ class _LoginPageState extends State<LoginPage> {
                 color: Color(0xfff84b2a),
               ),
 
+              divider20(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "¿Aun no estas registrado?"
+                    ),
+
+                  divider10width(),
+                  InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> RegisterPage(),),);
+                    },
+                    child: Text("Registrate",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: kBrandPrimaryColor,
+                    ),
+                      ),
+                    ),
+                ],
+              ),
             ],
           ),
         ),
