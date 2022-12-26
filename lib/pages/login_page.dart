@@ -24,6 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   final formkey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ["email"]);
 
   _login()async{
     try{
@@ -51,9 +52,21 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _loginWithGoogle()async{
-    GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ["email"]);
-    _googleSignIn.signIn();
-  }
+    GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
+
+    if(googleSignInAccount == null){
+      return;
+    }
+  
+    GoogleSignInAuthentication _googleSingInAuth = await googleSignInAccount.authentication;
+
+    OAuthCredential credential = GoogleAuthProvider.credential(
+      idToken: _googleSingInAuth.idToken,
+      accessToken: _googleSingInAuth.accessToken,
+    );
+
+    UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+}
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                     _loginWithGoogle();
                   },
                 ),
-          
+
                 divider20(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
