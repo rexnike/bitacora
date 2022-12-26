@@ -9,6 +9,7 @@ Widget divider10() => const SizedBox(height: 10);
 Widget divider20() => const SizedBox(height: 20);
 Widget divider30() => const SizedBox(height: 30);
 Widget divider40() => const SizedBox(height: 40);
+Widget divider150() => const SizedBox(height: 150);
 
 Widget divider3Width() => const SizedBox(width: 3);
 Widget divider6width() => const SizedBox(width: 6);

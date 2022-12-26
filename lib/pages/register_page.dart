@@ -63,57 +63,73 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Form(
-            key: keyForm,
-            child: Column(
-              children: [
-                divider30(),
-                SvgPicture.asset('assets/images/register.svg',
-                height: 180.0,
-                ),
-          
-                divider10(),
-                Text("Registrate",
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.w600,
-                  color: kBrandPrimaryColor,
-                  ),
-                ),
-          
-                divider20(),
-                TextFieldNormalhWidget(
-                  hintText: "Nombre Completo", 
-                  icon: Icons.email, 
-                  controller: _fullNameController,
-                ),
-          
-                divider10(),
-                divider6(),
-                TextFieldNormalhWidget(
-                  hintText: "Correo electronico", 
-                  icon: Icons.email, 
-                  controller: _emailController,
-                ),
-          
-                divider10(),
-                divider6(),
-                TextFieldPasswordWidget(
-                  controller: _passwordController,
-                ),
-          
-                divider20(),
-                ButtomCustomWidget(
-                  text: "Registrate",
-                  icon: "check",
-                  color: kBrandPrimaryColor,
-                  onPressed: (){
-                    _registerUser();
-                  },
-                ),
+        child: Container(
+          height: 700,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.black45,
+                Colors.white,
+                Colors.black45,
+                
               ],
+              begin: Alignment.topRight,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Form(
+              key: keyForm,
+              child: Column(
+                
+                children: [
+                  divider30(),
+                  SvgPicture.asset('assets/images/register.svg',
+                  height: 180.0,
+                  ),
+            
+                  divider10(),
+                  Text("Registrate",
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.w600,
+                    color: kBrandPrimaryColor,
+                    ),
+                  ),
+            
+                  divider20(),
+                  TextFieldNormalhWidget(
+                    hintText: "Nombre Completo", 
+                    icon: Icons.email, 
+                    controller: _fullNameController,
+                  ),
+            
+                  divider10(),
+                  divider6(),
+                  TextFieldNormalhWidget(
+                    hintText: "Correo electronico", 
+                    icon: Icons.email, 
+                    controller: _emailController,
+                  ),
+            
+                  divider10(),
+                  divider6(),
+                  TextFieldPasswordWidget(
+                    controller: _passwordController,
+                  ),
+            
+                  divider20(),
+                  ButtomCustomWidget(
+                    text: "Registrate",
+                    icon: "check",
+                    color: kBrandPrimaryColor,
+                    onPressed: (){
+                      _registerUser();
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),

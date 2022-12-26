@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../models/user_model.dart';
 import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -54,42 +53,6 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  _loginWithGoogle()async{
-    GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
-
-    if(googleSignInAccount == null){
-      return;
-    }
-  
-    GoogleSignInAuthentication _googleSingInAuth = await googleSignInAccount.authentication;
-
-    OAuthCredential credential = GoogleAuthProvider.credential(
-      idToken: _googleSingInAuth.idToken,
-      accessToken: _googleSingInAuth.accessToken,
-    );
-
-    UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-    
-    if(userCredential.user != null){
-      UserModel userModel = UserModel(
-        fullName: userCredential.user!.displayName!, 
-        email: userCredential.user!.email!,
-        );
-        
-      userService.existUser(userCredential.user!.email!).then((value){
-        if(value){
-          userService.addUser(userModel).then((value) => {
-          if(value.isNotEmpty){
-            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomePage()), (route) => false),
-          }
-        });
-        }else{
-            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomePage()), (route) => false);
-        }
-      });
-    }
-}
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,81 +62,93 @@ class _LoginPageState extends State<LoginPage> {
           padding: const EdgeInsets.all(16.0),
           child: Form(
             key: formkey,
-            child: Column(
-              children: [
-          
-                divider30(),
-                SvgPicture.asset('assets/images/uno.svg',
-                height: 180.0,
+            
+            child: Container(
+              height: 700,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/fondo2.jpg"),
+                  fit: BoxFit.cover,
                 ),
+              ),
+              child: Column(
+                children: [
           
-                divider10(),
-                Text("Inciar Sesion",
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.w600,
-                  color: kBrandPrimaryColor,
+                  divider150(),
+                  /*
+                  SvgPicture.asset('assets/images/uno.svg',
+                  height: 180.0,
+                  ),*/
+          
+                  divider10(),
+                  Text("Inciar Sesion",
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.w600,
+                    color: kBrandSecundatyColor,
+                    ),
                   ),
-                ),
           
-                divider10(),
-                TextFieldNormalhWidget(
-                  hintText: "Correo electronico", 
-                  icon: Icons.email, 
-                  controller: _emailController,
+                  divider10(),
+                  TextFieldNormalhWidget(
+                    hintText: "Correo electronico", 
+                    icon: Icons.email, 
+                    controller: _emailController,
+                    ),
+          
+                  divider10(),
+                  divider6(),
+                  TextFieldPasswordWidget(
+                    controller: _passwordController,),
+          
+                  divider20(),
+                  ButtomCustomWidget(
+                    text: "Iniciar Sesion",
+                    icon: "check2",
+                    color: kBrandPrimaryColor,
+                    onPressed: (){
+                      _login();
+                    },
+                  ),
+                  
+                  divider20(),
+                  Text("O ingrese con su correo",
+                  style: TextStyle(
+                          
+                          color: kBrandSecundatyColor,
+                    ),
                   ),
           
-                divider10(),
-                divider6(),
-                TextFieldPasswordWidget(
-                  controller: _passwordController,),
+                  
+                  divider20(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "¿Aun no estas registrado?",
+                        style: TextStyle(
+                          
+                          color: kBrandSecundatyColor
+                        ),
+                        ),
           
-                divider20(),
-                ButtomCustomWidget(
-                  text: "Iniciar Sesion",
-                  icon: "check2",
-                  color: kBrandPrimaryColor,
-                  onPressed: (){
-                    _login();
-                  },
-                ),
-                
-                divider20(),
-                Text("O ingrese con su correo"),
-          
-                divider20(),
-                ButtomCustomWidget(
-                  text: "Iniciar Sesion con Google",
-                  icon: "google",
-                  color: Color(0xfff84b2a),
-                  onPressed: (){
-                    _loginWithGoogle();
-                  },
-                ),
-
-                divider20(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "¿Aun no estas registrado?"
-                      ),
-          
-                    divider10width(),
-                    InkWell(
+                  divider10width(),
+                  InkWell(
                       onTap: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context)=> RegisterPage(),),);
                       },
-                      child: Text("Registrate",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: kBrandPrimaryColor,
-                      ),
+                        child: Text("Registrate",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          color: kBrandSecundatyColor,
                         ),
-                      ),
-                  ],
-                ),
-              ],
+                          ),
+                        ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

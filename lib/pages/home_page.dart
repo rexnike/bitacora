@@ -119,7 +119,6 @@ class HomePage extends StatelessWidget {
                       ),
                   IconButton(
                     onPressed: (){
-                      _googleSignIn.signOut();
                       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LoginPage()), (route) => false);
                     }, 
                     icon: Icon(Icons.exit_to_app, color: kBrandPrimaryColor,),
