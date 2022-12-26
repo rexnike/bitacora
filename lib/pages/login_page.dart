@@ -63,6 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                 text: "Iniciar Sesion",
                 icon: "check2",
                 color: kBrandPrimaryColor,
+                onPressed: (){},
               ),
               
               divider20(),
@@ -73,6 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                 text: "Iniciar Sesion con Google",
                 icon: "google",
                 color: Color(0xfff84b2a),
+                onPressed: (){},
               ),
 
               divider20(),

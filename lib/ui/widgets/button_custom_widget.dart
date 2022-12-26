@@ -1,5 +1,4 @@
 
-import 'package:bitacora/ui/general/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -8,11 +7,13 @@ class ButtomCustomWidget extends StatelessWidget {
   String text;
   Color color;
   String icon;
+  Function onPressed;
 
   ButtomCustomWidget({
     required this.text, 
     required this.color, 
     required this.icon,
+    required this.onPressed,
     });
 
   @override
@@ -21,7 +22,9 @@ class ButtomCustomWidget extends StatelessWidget {
                 height: 52.0,
                 width: double.infinity,
                 child: ElevatedButton.icon(
-                  onPressed: (){},
+                  onPressed: (){
+                    onPressed();
+                  },
                   style: ElevatedButton.styleFrom(
                     primary: color,
                     shape: RoundedRectangleBorder(

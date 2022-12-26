@@ -4,6 +4,7 @@ import 'package:bitacora/ui/widgets/button_custom_widget.dart';
 import 'package:bitacora/ui/widgets/general_widgets.dart';
 import 'package:bitacora/ui/widgets/textfield_normal_widget.dart';
 import 'package:bitacora/ui/widgets/textfield_password_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -19,6 +20,14 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _fullNameController = TextEditingController();
+
+  _registerUser()async{
+    UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: "naranja@gmail.com", 
+      password: "123456789",
+      );
+      print(userCredential);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +78,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 text: "Registrate",
                 icon: "check",
                 color: kBrandPrimaryColor,
+                onPressed: (){
+                  _registerUser();
+                },
               ),
-
-              divider10(),
             ],
           ),
         ),
