@@ -1,5 +1,6 @@
 
 import 'package:bitacora/ui/general/colors.dart';
+import 'package:bitacora/ui/widgets/button_custom_widget.dart';
 import 'package:bitacora/ui/widgets/button_normal_widget.dart';
 import 'package:bitacora/ui/widgets/general_widgets.dart';
 import 'package:bitacora/ui/widgets/textfield_normal_widget.dart';
@@ -57,7 +58,22 @@ class _LoginPageState extends State<LoginPage> {
                 controller: _passwordController,),
 
               divider20(),
-              ButtonNormalWidget(onPressed: (){},),
+              ButtomCustomWidget(
+                text: "Iniciar Sesion",
+                icon: "check2",
+                color: kBrandPrimaryColor,
+              ),
+              
+              divider20(),
+              Text("O ingrese con su correo"),
+
+              divider20(),
+              ButtomCustomWidget(
+                text: "Iniciar Sesion con Google",
+                icon: "google",
+                color: Color(0xfff84b2a),
+              ),
+
             ],
           ),
         ),
