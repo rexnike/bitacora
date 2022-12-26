@@ -1,5 +1,6 @@
 
 import 'package:bitacora/pages/register_page.dart';
+import 'package:bitacora/services/my_services_firestore.dart';
 import 'package:bitacora/ui/general/colors.dart';
 import 'package:bitacora/ui/widgets/button_custom_widget.dart';
 import 'package:bitacora/ui/widgets/general_widgets.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../models/user_model.dart';
 import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -25,6 +27,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ["email"]);
+  MyServicesFireStore userService = MyServicesFireStore(collection: "users");
 
   _login()async{
     try{
@@ -66,6 +69,25 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+    
+    if(userCredential.user != null){
+      UserModel userModel = UserModel(
+        fullName: userCredential.user!.displayName!, 
+        email: userCredential.user!.email!,
+        );
+        
+      userService.existUser(userCredential.user!.email!).then((value){
+        if(value){
+          userService.addUser(userModel).then((value) => {
+          if(value.isNotEmpty){
+            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomePage()), (route) => false),
+          }
+        });
+        }else{
+            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomePage()), (route) => false);
+        }
+      });
+    }
 }
 
   @override

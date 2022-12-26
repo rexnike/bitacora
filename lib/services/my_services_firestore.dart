@@ -29,4 +29,11 @@ class MyServicesFireStore{
   return documentReference.id;
   }
 
+  Future<bool> existUser(String email)async{
+    QuerySnapshot collection = await _collectionReference.where("email", isEqualTo: email).get();
+    if(collection.docs.isNotEmpty){
+      return true;
+    }
+    return false;
+  }
 }
