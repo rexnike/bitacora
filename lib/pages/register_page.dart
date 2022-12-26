@@ -17,16 +17,28 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
 
+  final keyForm = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _fullNameController = TextEditingController();
 
   _registerUser()async{
-    UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: "naranja@gmail.com", 
-      password: "123456789",
+
+    try{
+      if(keyForm.currentState!.validate()){
+        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text, 
+        password: _passwordController.text,
       );
-      print(userCredential);
+      }
+
+    } on FirebaseAuthException catch(error){
+      if(error.code == "weak-password"){
+        showSnackBarError(context, "La contraseña es muy debil");
+      }else if(error.code == "email-already-in-use"){
+        showSnackBarError(context, "El correo electrnico ya esta en uso");
+      }
+    }
   }
 
   @override
@@ -36,53 +48,56 @@ class _RegisterPageState extends State<RegisterPage> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              divider30(),
-              SvgPicture.asset('assets/images/register.svg',
-              height: 180.0,
-              ),
-
-              divider10(),
-              Text("Registrate",
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.w600,
-                color: kBrandPrimaryColor,
+          child: Form(
+            key: keyForm,
+            child: Column(
+              children: [
+                divider30(),
+                SvgPicture.asset('assets/images/register.svg',
+                height: 180.0,
                 ),
-              ),
-
-              divider20(),
-              TextFieldNormalhWidget(
-                hintText: "Nombre Completo", 
-                icon: Icons.email, 
-                controller: _fullNameController,
-              ),
-
-              divider10(),
-              divider6(),
-              TextFieldNormalhWidget(
-                hintText: "Correo electronico", 
-                icon: Icons.email, 
-                controller: _emailController,
-              ),
-
-              divider10(),
-              divider6(),
-              TextFieldPasswordWidget(
-                controller: _passwordController,
-              ),
-
-              divider20(),
-              ButtomCustomWidget(
-                text: "Registrate",
-                icon: "check",
-                color: kBrandPrimaryColor,
-                onPressed: (){
-                  _registerUser();
-                },
-              ),
-            ],
+          
+                divider10(),
+                Text("Registrate",
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w600,
+                  color: kBrandPrimaryColor,
+                  ),
+                ),
+          
+                divider20(),
+                TextFieldNormalhWidget(
+                  hintText: "Nombre Completo", 
+                  icon: Icons.email, 
+                  controller: _fullNameController,
+                ),
+          
+                divider10(),
+                divider6(),
+                TextFieldNormalhWidget(
+                  hintText: "Correo electronico", 
+                  icon: Icons.email, 
+                  controller: _emailController,
+                ),
+          
+                divider10(),
+                divider6(),
+                TextFieldPasswordWidget(
+                  controller: _passwordController,
+                ),
+          
+                divider20(),
+                ButtomCustomWidget(
+                  text: "Registrate",
+                  icon: "check",
+                  color: kBrandPrimaryColor,
+                  onPressed: (){
+                    _registerUser();
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
